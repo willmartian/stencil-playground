@@ -22,14 +22,19 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^2.0.1"
+    "@stencil/core": "^2.0.1",
+    "ace-builds": "^1.4.12",
+    "codejar": "^3.5.0",
+    "codemirror": "^5.62.2",
+    "monaco-editor": "^0.26.1",
+    "prismjs": "^1.24.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
+    "@types/puppeteer": "^5.4.3",
     "jest": "^26.6.3",
     "jest-cli": "^26.6.3",
-    "puppeteer": "^5.5.0",
-    "@types/puppeteer": "^5.4.3"
+    "puppeteer": "^5.5.0"
   },
   "license": "MIT"
 }

@@ -20,6 +20,15 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface StencilEditor {
+    }
+    interface StencilPlayground {
+        "css": string;
+        "script": string;
+    }
+    interface StencilPreview {
+        "srcDoc": string;
+    }
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +37,29 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLStencilEditorElement extends Components.StencilEditor, HTMLStencilElement {
+    }
+    var HTMLStencilEditorElement: {
+        prototype: HTMLStencilEditorElement;
+        new (): HTMLStencilEditorElement;
+    };
+    interface HTMLStencilPlaygroundElement extends Components.StencilPlayground, HTMLStencilElement {
+    }
+    var HTMLStencilPlaygroundElement: {
+        prototype: HTMLStencilPlaygroundElement;
+        new (): HTMLStencilPlaygroundElement;
+    };
+    interface HTMLStencilPreviewElement extends Components.StencilPreview, HTMLStencilElement {
+    }
+    var HTMLStencilPreviewElement: {
+        prototype: HTMLStencilPreviewElement;
+        new (): HTMLStencilPreviewElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "stencil-editor": HTMLStencilEditorElement;
+        "stencil-playground": HTMLStencilPlaygroundElement;
+        "stencil-preview": HTMLStencilPreviewElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +77,20 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface StencilEditor {
+    }
+    interface StencilPlayground {
+        "css"?: string;
+        "script"?: string;
+    }
+    interface StencilPreview {
+        "srcDoc"?: string;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "stencil-editor": StencilEditor;
+        "stencil-playground": StencilPlayground;
+        "stencil-preview": StencilPreview;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +98,9 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "stencil-editor": LocalJSX.StencilEditor & JSXBase.HTMLAttributes<HTMLStencilEditorElement>;
+            "stencil-playground": LocalJSX.StencilPlayground & JSXBase.HTMLAttributes<HTMLStencilPlaygroundElement>;
+            "stencil-preview": LocalJSX.StencilPreview & JSXBase.HTMLAttributes<HTMLStencilPreviewElement>;
         }
     }
 }
