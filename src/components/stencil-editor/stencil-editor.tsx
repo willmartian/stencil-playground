@@ -1,6 +1,4 @@
-import { Component, Host, h, Element, State } from '@stencil/core';
-import ace from 'ace-builds';
-// import Prism from 'prismjs';
+import { Component, Host, h, Element, State, getAssetPath } from '@stencil/core';
 
 @Component({
   tag: 'stencil-editor',
@@ -8,22 +6,31 @@ import ace from 'ace-builds';
   shadow: true,
 })
 export class StencilEditor {
-
   @Element() el: HTMLElement;
 
-  @State() editor: ace.Ace.Editor;
+  @State() editor: monaco.editor.IStandaloneCodeEditor;
 
+  private editorEl: HTMLDivElement;
+
+  componentWillLoad() {
+    const el = document.createElement('script');
+    el.src = getAssetPath('./vendor/esm/vs/editor/editor.all.js');
+    document.head.append(el);
+  }
 
   componentDidLoad() {
-    this.editor = ace.edit("editor-container");
+    console.log(this.editorEl);
+    monaco.editor.create(this.editorEl, {
+      value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
+      language: 'typescript',
+    });
   }
 
   render() {
     return (
       <Host>
-        <div id="editor-container"></div>
+        <div ref={e => (this.editorEl = e)} id="editor-container" />
       </Host>
     );
   }
-
 }
