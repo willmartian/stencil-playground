@@ -1,6 +1,6 @@
 import { Component, Host, h, Element, State } from '@stencil/core';
 import ace from 'ace-builds';
-import Prism from 'prismjs';
+// import Prism from 'prismjs';
 
 @Component({
   tag: 'stencil-editor',
