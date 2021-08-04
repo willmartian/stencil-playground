@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, Prop } from '@stencil/core';
 
 @Component({
   tag: 'stencil-playground',
@@ -7,10 +7,15 @@ import { Component, Host, h } from '@stencil/core';
 })
 export class StencilPlayground {
 
+  @Prop() script: string;
+
+  @Prop() css: string;
+
   render() {
     return (
       <Host>
-        <slot></slot>
+        <stencil-editor></stencil-editor>
+        <stencil-preview></stencil-preview>
       </Host>
     );
   }

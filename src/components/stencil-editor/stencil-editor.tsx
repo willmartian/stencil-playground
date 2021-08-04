@@ -1,4 +1,6 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, Element, State } from '@stencil/core';
+import ace from 'ace-builds';
+import Prism from 'prismjs';
 
 @Component({
   tag: 'stencil-editor',
@@ -7,10 +9,19 @@ import { Component, Host, h } from '@stencil/core';
 })
 export class StencilEditor {
 
+  @Element() el: HTMLElement;
+
+  @State() editor: ace.Ace.Editor;
+
+
+  componentDidLoad() {
+    this.editor = ace.edit("editor-container");
+  }
+
   render() {
     return (
       <Host>
-        <slot></slot>
+        <div id="editor-container"></div>
       </Host>
     );
   }
