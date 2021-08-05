@@ -43,7 +43,7 @@ export class StencilPlayground {
   private switchView() {
     switch (this.currentView) {
       case 'script':
-        return <stencil-editor />;
+        return <stencil-editor type="script" language="typescript" />;
       case 'css':
         return <div>hello</div>;
       case 'preview':
