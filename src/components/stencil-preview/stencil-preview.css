@@ -100,6 +100,7 @@ ion-card#options-card {
   left: 0;
 
   margin: var(--device-frame-width);
+  margin-top: 3em;
 
   width: calc(100% - var(--device-frame-width) * 2);
   height: calc(100% - var(--device-frame-width) * 2);

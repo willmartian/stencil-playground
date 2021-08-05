@@ -1,4 +1,4 @@
-import { Component, Host, h, getAssetPath } from '@stencil/core';
+import { Component, Host, h, getAssetPath, State } from '@stencil/core';
 import { getComponentData, getComponentList, getSrcDoc } from '../../utils/utils';
 
 @Component({
@@ -8,10 +8,6 @@ import { getComponentData, getComponentList, getSrcDoc } from '../../utils/utils
   shadow: false,
 })
 export class StencilPreview {
-
-  // private createComponentHTML() {
-
-  // }
 
   render() {
     return (
@@ -30,12 +26,16 @@ export class StencilPreview {
                   <ion-list slot="content" class="prop-list" lines="full" style={{paddingTop: '0', paddingBottom: '0'}}>
                     {data.properties.map(prop =>
                       <ion-item color="dark">
-                        <ion-label>{prop.name + ': '}</ion-label>
+                        <ion-label><b>{prop.name + ': '}</b></ion-label>
                         {prop.type === 'string' && <ion-input value={prop.defaultValue} slot="end" type="text"></ion-input>}
                         {prop.type === 'boolean' && <ion-toggle checked={prop.defaultValue === 'true'}></ion-toggle>}
-
                       </ion-item>
                     )}
+                    <ion-item color="dark">
+                      <pre>
+                        <code>{}</code>
+                      </pre>
+                    </ion-item>
                   </ion-list>
                 </ion-accordion>
               })}
