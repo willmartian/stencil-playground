@@ -8,6 +8,11 @@ import { getComponentData, getComponentList, getSrcDoc } from '../../utils/utils
   shadow: false,
 })
 export class StencilPreview {
+
+  // private createComponentHTML() {
+
+  // }
+
   render() {
     return (
       <Host>
@@ -26,8 +31,9 @@ export class StencilPreview {
                     {data.properties.map(prop =>
                       <ion-item color="dark">
                         <ion-label>{prop.name + ': '}</ion-label>
-                        {prop.type === 'string' && <ion-input slot="end" type="text"></ion-input>}
+                        {prop.type === 'string' && <ion-input value={prop.defaultValue} slot="end" type="text"></ion-input>}
                         {prop.type === 'boolean' && <ion-toggle checked={prop.defaultValue === 'true'}></ion-toggle>}
+
                       </ion-item>
                     )}
                   </ion-list>
