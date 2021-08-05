@@ -8,9 +8,7 @@ import { getComponentData, getComponentList, getSrcDoc } from '../../utils/utils
   shadow: false,
 })
 export class StencilPreview {
-
   render() {
-
     return (
       <Host>
         <ion-card id="options-card" color="dark">
