@@ -15,7 +15,7 @@ export class StencilEditor {
   @State() editor: Monaco.editor.IStandaloneCodeEditor;
 
   @Prop() language: string;
-  @Prop() type: 'script' | 'css' | 'html';
+  @Prop() type: 'script' | 'css' | 'html' = 'script';
 
   private editorEl: HTMLDivElement;
 
