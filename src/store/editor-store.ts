@@ -15,6 +15,7 @@ interface PreviewStore {
   buildResult: TranspileResults;
   propValues: PropValues[];
   readOnly: boolean;
+  monacoAvailable: boolean;
 }
 
 const initialStore: PreviewStore = {
@@ -24,6 +25,7 @@ const initialStore: PreviewStore = {
   transpiled: null,
   buildResult: null,
   readOnly: false,
+  monacoAvailable: false,
   propValues: [],
 };
 

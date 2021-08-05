@@ -37,6 +37,7 @@ export class StencilPlayground {
   }
 
   private segmentChanged(ev) {
+    console.log(ev.target.value);
     this.currentView = ev.target.value;
   }
 
@@ -45,7 +46,7 @@ export class StencilPlayground {
       case 'script':
         return <stencil-editor type="script" language="typescript" />;
       case 'css':
-        return <div>hello</div>;
+        return <stencil-editor type="css" language="css" />;
       case 'preview':
         return <stencil-preview />;
       default:

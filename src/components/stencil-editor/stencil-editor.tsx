@@ -1,4 +1,4 @@
-import { Component, Host, h, Element, State, Prop } from '@stencil/core';
+import { Component, Host, h, Element, State, Prop, Watch } from '@stencil/core';
 import type * as Monaco from 'monaco-editor';
 import loader from '@monaco-editor/loader';
 import state from '../../store/editor-store';
@@ -14,7 +14,7 @@ export class StencilEditor {
 
   @State() editor: Monaco.editor.IStandaloneCodeEditor;
 
-  @Prop() language: string;
+  @Prop() language: string = 'typescript';
   @Prop() type: 'script' | 'css' | 'html' = 'script';
 
   private editorEl: HTMLDivElement;
@@ -28,33 +28,53 @@ export class StencilEditor {
     state[this.type] = value;
   }
 
+  @Watch('type')
+  handleTypeChange() {
+    this.unmountEditor();
+    this.mountEditor();
+  }
+
   contentChanged(_event: Monaco.editor.IModelContentChangedEvent) {
     clearTimeout(this.timeout);
 
     this.timeout = setTimeout(() => {
       if (!state.readOnly) {
-        state.script = this.editor.getValue();
+        this.state = this.editor.getValue();
       }
     }, 350);
   }
 
   componentDidLoad() {
-    loader.init().then(monaco => {
-      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-        noSemanticValidation: true,
-        noSyntaxValidation: true,
+    if (!!state.monacoAvailable) {
+      this.mountEditor();
+    } else {
+      loader.init().then(monaco => {
+        window.monaco = monaco;
+        state.monacoAvailable = true;
+        this.mountEditor();
       });
+    }
+  }
 
-      this.editor = monaco.editor.create(this.editorEl, {
-        value: this.state,
-        language: this.language,
-        readOnly: state.readOnly,
-        theme: 'vs-dark',
-        fontSize: 15,
-      });
+  unmountEditor() {
+    this.editor.dispose();
+  }
 
-      this.editor.getModel().onDidChangeContent(this.contentChanged.bind(this));
+  mountEditor() {
+    window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSemanticValidation: true,
+      noSyntaxValidation: true,
     });
+
+    this.editor = window.monaco.editor.create(this.editorEl, {
+      value: this.state,
+      language: this.language,
+      readOnly: state.readOnly,
+      theme: 'vs-dark',
+      fontSize: 15,
+    });
+
+    this.editor.getModel().onDidChangeContent(this.contentChanged.bind(this));
   }
 
   render() {

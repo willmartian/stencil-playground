@@ -1,5 +1,6 @@
 import type { transpile as StencilTranspiler } from '@stencil/core/compiler';
 import state, { set } from '../store/editor-store';
+import type * as Monaco from 'monaco-editor';
 
 interface StencilInBrowser {
   transpile?: typeof StencilTranspiler;
@@ -10,6 +11,7 @@ declare global {
   interface Window {
     stencil: StencilInBrowser;
     stencilDevServer: any;
+    monaco: typeof Monaco;
   }
 }
 
