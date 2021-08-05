@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Element, State } from '@stencil/core';
+import { Component, Host, h, Prop, Element, State, Listen } from '@stencil/core';
 import state from '../../store/editor-store';
 
 @Component({
@@ -14,10 +14,29 @@ export class StencilPlayground {
 
   @State() currentView: 'script' | 'css' | 'preview' = 'script';
 
+  private scriptBtnEl!: HTMLIonSegmentButtonElement;
+  private cssBtnEl!: HTMLIonSegmentButtonElement;
+  private previewBtnEl!: HTMLIonSegmentButtonElement;
+
   componentWillLoad() {
     state.readOnly = this.readOnly;
     state.script = this.scriptContent;
     state.css = this.cssContent;
+  }
+
+  @Listen('keydown', {
+    target: 'window',
+  })
+  handleTabSwitch(ev: KeyboardEvent) {
+    if (ev.ctrlKey && ev.key === '1') {
+      this.scriptBtnEl.click();
+    }
+    if (ev.ctrlKey && ev.key === '2') {
+      this.cssBtnEl.click();
+    }
+    if (ev.ctrlKey && ev.key === '3') {
+      this.previewBtnEl.click();
+    }
   }
 
   get scriptContent() {
@@ -63,13 +82,13 @@ export class StencilPlayground {
           </ion-content>
           <ion-footer color="dark">
             <ion-segment value="script" color="dark" onIonChange={this.segmentChanged.bind(this)}>
-              <ion-segment-button value="script">
+              <ion-segment-button value="script" ref={el => (this.scriptBtnEl = el)}>
                 <ion-label>Definition</ion-label>
               </ion-segment-button>
-              <ion-segment-button value="css">
+              <ion-segment-button value="css" ref={el => (this.cssBtnEl = el)}>
                 <ion-label>Style</ion-label>
               </ion-segment-button>
-              <ion-segment-button id="segment-button-preview" value="preview">
+              <ion-segment-button id="segment-button-preview" value="preview" ref={el => (this.previewBtnEl = el)}>
                 <ion-label>Preview</ion-label>
               </ion-segment-button>
             </ion-segment>
