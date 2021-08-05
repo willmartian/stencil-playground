@@ -36,6 +36,11 @@ export class StencilEditor {
 
   componentDidLoad() {
     loader.init().then(monaco => {
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+        noSyntaxValidation: true,
+      });
+      
       this.editor = monaco.editor.create(this.editorEl, {
         value: this.state,
         language: this.language,
