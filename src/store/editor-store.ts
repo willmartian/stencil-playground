@@ -1,13 +1,19 @@
 import { TranspileResults } from '@stencil/core/compiler';
 import { createStore } from '@stencil/store';
-import { transpileCode } from '../utils/utils';
+import { getComponentData, getComponentList, transpileCode } from '../utils/utils';
 
+interface PropValues {
+  component: string;
+  name: string;
+  value: any;
+}
 interface PreviewStore {
   css: string;
   script: string;
   content: string;
   transpiled: string;
   buildResult: TranspileResults;
+  propValues: PropValues[];
   readOnly: boolean;
 }
 
@@ -18,11 +24,27 @@ const initialStore: PreviewStore = {
   transpiled: null,
   buildResult: null,
   readOnly: false,
+  propValues: [],
 };
 
 const { state, onChange, on, set } = createStore(initialStore);
 
 onChange('script', v => transpileCode(v));
+
+onChange('buildResult', () => {
+  const components = getComponentList();
+  let defaultValues: PropValues[] = [];
+  components.forEach(component => {
+    getComponentData(component).properties.map(data => {
+      defaultValues.push({
+        component,
+        ...data,
+      });
+    });
+  });
+
+  set('propValues', defaultValues);
+});
 
 on('set', prop => {
   console.log('Updated:', prop);
