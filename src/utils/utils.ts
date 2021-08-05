@@ -101,6 +101,7 @@ export const getSrcDoc = () => {
 };
 
 export const getComponentList = () => {
+  console.log(state.buildResult.data.map(e => e.name));
   return state.buildResult.data.map(e => e.name);
 };
 

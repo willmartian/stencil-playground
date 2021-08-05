@@ -1,5 +1,5 @@
 import { Component, Host, h, getAssetPath } from '@stencil/core';
-import { getSrcDoc } from '../../utils/utils';
+import { getComponentList, getSrcDoc } from '../../utils/utils';
 
 @Component({
   tag: 'stencil-preview',
@@ -7,20 +7,27 @@ import { getSrcDoc } from '../../utils/utils';
   assetsDirs: ['assets'],
 })
 export class StencilPreview {
+
   render() {
     const componentName = 'my-component'
 
     return (
       <Host>
         <ion-card id="options-card" color="dark">
-          <ion-card-header>
-            <ion-card-title>
-              {`<${componentName}>`}
-            </ion-card-title>
-          </ion-card-header>
-
           <ion-card-content>
+            <ion-accordion-group>
+              {getComponentList().map(component => <ion-accordion>
+                <ion-item slot="header" color="dark">
+                  <item-label>{component}</item-label>
+                </ion-item>
 
+                <ion-list slot="content">
+                  <ion-item color="dark">
+
+                  </ion-item>
+                </ion-list>
+              </ion-accordion>)}
+            </ion-accordion-group>
           </ion-card-content>
         </ion-card>
         <div style={{ '--background-image': `url("${getAssetPath('./assets/iphone-device-skin.png')}")` }} class={`docs-demo-device ios`}>
