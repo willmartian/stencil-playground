@@ -1,5 +1,5 @@
 import { Component, Host, h, getAssetPath } from '@stencil/core';
-import { getComponentData, getComponentList, getSrcDoc } from '../../utils/utils';
+import { getComponentData, getComponentList, getSrcDoc, setProperty } from '../../utils/utils';
 
 @Component({
   tag: 'stencil-preview',
@@ -8,11 +8,6 @@ import { getComponentData, getComponentList, getSrcDoc } from '../../utils/utils
   shadow: false,
 })
 export class StencilPreview {
-
-  // private createComponentHTML() {
-
-  // }
-
   render() {
     return (
       <Host>
@@ -22,22 +17,32 @@ export class StencilPreview {
               {getComponentList().map(component => {
                 const data = getComponentData(component);
 
-                return <ion-accordion>
-                  <ion-item slot="header" color="dark">
-                    <item-label>{component}</item-label>
-                  </ion-item>
+                return (
+                  <ion-accordion>
+                    <ion-item slot="header" color="dark">
+                      <item-label>{component}</item-label>
+                    </ion-item>
 
-                  <ion-list slot="content" class="prop-list" lines="full" style={{paddingTop: '0', paddingBottom: '0'}}>
-                    {data.properties.map(prop =>
-                      <ion-item color="dark">
-                        <ion-label>{prop.name + ': '}</ion-label>
-                        {prop.type === 'string' && <ion-input value={prop.defaultValue} slot="end" type="text"></ion-input>}
-                        {prop.type === 'boolean' && <ion-toggle checked={prop.defaultValue === 'true'}></ion-toggle>}
-
-                      </ion-item>
-                    )}
-                  </ion-list>
-                </ion-accordion>
+                    <ion-list slot="content" class="prop-list" lines="full" style={{ paddingTop: '0', paddingBottom: '0' }}>
+                      {data.properties.map(prop => (
+                        <ion-item color="dark">
+                          <ion-label>{prop.name + ': '}</ion-label>
+                          {prop.type === 'string' && (
+                            <ion-input
+                              value={prop?.defaultValue?.replaceAll('"')}
+                              slot="end"
+                              type="text"
+                              onIonChange={e => setProperty(component, prop.name, e.detail.value)}
+                            ></ion-input>
+                          )}
+                          {prop.type === 'boolean' && (
+                            <ion-toggle checked={prop.defaultValue === 'true'} onIonChange={e => setProperty(component, prop.name, e.detail.checked)}></ion-toggle>
+                          )}
+                        </ion-item>
+                      ))}
+                    </ion-list>
+                  </ion-accordion>
+                );
               })}
             </ion-accordion-group>
           </ion-card-content>

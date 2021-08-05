@@ -102,10 +102,44 @@ export const getSrcDoc = () => {
   <script type="module">${state.transpiled}</script>
 </head>
 <body>
-  ${state?.content ?? `<my-component name="will"></my-component>`}
+  ${state?.content ?? getDemoHTML()}
 </body>
 </html>
 `;
+};
+
+export const setProperty = (component, name, newValue) => {
+  let props = state.propValues;
+
+  console.log(component, name, newValue);
+
+  props = props.map(prop => {
+    return prop.component === component && prop.name === name ? { ...prop, value: newValue } : prop;
+  });
+
+  set('propValues', props);
+};
+
+export const getDemoHTML = () => {
+  return getComponentList()
+    .map(c => getComponentDemoHTML(c))
+    .join('\n');
+};
+
+export const getComponentDemoHTML = (component: string) => {
+  return `<${component} ${getComponentDemoPropertiesHTML(component)}></${component}>`;
+};
+
+export const printAccurateAttribute = prop => {
+  if (prop.type === 'boolean') {
+    return `${prop.value === true ? prop.name : ''}`;
+  } else {
+    return `${prop.name}="${prop?.value}"`;
+  }
+};
+
+export const getComponentDemoPropertiesHTML = (component: string) => {
+  return state.propValues.map(prop => prop.component === component && printAccurateAttribute(prop)).join(' ');
 };
 
 export const getComponentList = () => {

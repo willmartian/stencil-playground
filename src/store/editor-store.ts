@@ -6,6 +6,7 @@ interface PropValues {
   component: string;
   name: string;
   value: any;
+  type: any;
 }
 interface PreviewStore {
   css: string;
@@ -33,6 +34,7 @@ const { state, onChange, on, set } = createStore(initialStore);
 
 onChange('script', v => transpileCode(v));
 onChange('css', () => transpileCode(state.script));
+// onChange('propValues', () => transpileCode(state.script));
 
 onChange('buildResult', () => {
   const components = getComponentList();
@@ -41,7 +43,9 @@ onChange('buildResult', () => {
     getComponentData(component).properties.map(data => {
       defaultValues.push({
         component,
-        ...data,
+        name: data.attribute,
+        value: data.defaultValue,
+        type: data.type,
       });
     });
   });

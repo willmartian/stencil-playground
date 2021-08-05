@@ -13,8 +13,7 @@
   <body>
     <stencil-playground>
       <template slot="script">
-        <script>
-import { Component, Prop, h } from '@stencil/core';
+        <script>import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'my-component',
@@ -26,9 +25,13 @@ export class MyComponent {
    * The first name
    */
   @Prop() first: string;
+  /**
+   * The first name
+   */
+  @Prop() last: boolean;
 
   render() {
-    return <div>Hello, World! I'm {this.first}!</div>;
+    return <div>Hello, World! I'm {this.first}! {this.last ? "I have a last name" : "I do not have a last name"}</div>;
   }
 }
         </script>
@@ -36,6 +39,8 @@ export class MyComponent {
       <template slot="css">
         <style>
 :host {
+  margin: 100px;
+  display: block;
   color: red;
 }
         </style>
