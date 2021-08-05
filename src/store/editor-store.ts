@@ -1,13 +1,16 @@
 import { createStore } from '@stencil/store';
+import { transpileCode } from '../utils/utils';
 
-const { state, onChange } = createStore({
+const { state, onChange, on } = createStore({
   css: null,
   script: null,
   transpiled: null,
 });
 
-export default state;
+onChange('script', v => transpileCode(v));
 
-export {
-  onChange
-}
+on('set', prop => {
+  console.log('Updated:', prop);
+});
+
+export default state;
