@@ -18,6 +18,7 @@ export class StencilEditor {
   @Prop() type: 'script' | 'css' | 'html' = 'script';
 
   private editorEl: HTMLDivElement;
+  private timeout;
 
   get state() {
     return state[this.type];
@@ -28,10 +29,13 @@ export class StencilEditor {
   }
 
   contentChanged(_event: Monaco.editor.IModelContentChangedEvent) {
-    // Blocks editing during readonly mode
-    if (!state.readOnly) {
-      state.script = this.editor.getValue();
-    }
+    clearTimeout(this.timeout);
+
+    this.timeout = setTimeout(() => {
+      if (!state.readOnly) {
+        state.script = this.editor.getValue();
+      }
+    }, 350);
   }
 
   componentDidLoad() {
@@ -40,13 +44,13 @@ export class StencilEditor {
         noSemanticValidation: true,
         noSyntaxValidation: true,
       });
-      
+
       this.editor = monaco.editor.create(this.editorEl, {
         value: this.state,
         language: this.language,
         readOnly: state.readOnly,
         theme: 'vs-dark',
-        fontSize: 15
+        fontSize: 15,
       });
 
       this.editor.getModel().onDidChangeContent(this.contentChanged.bind(this));
