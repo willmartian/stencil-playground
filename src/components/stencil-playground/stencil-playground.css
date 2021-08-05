@@ -1,3 +1,7 @@
 stencil-playground {
   display: block;
 }
+
+stencil-playground > ion-app > ion-content:not(.preview) {
+  --ion-color-medium: rgb(30, 30, 30) !important;
+}

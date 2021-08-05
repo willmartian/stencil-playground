@@ -58,7 +58,9 @@ export class StencilPlayground {
     return (
       <Host>
         <ion-app>
-          <ion-content color="medium">{this.switchView()}</ion-content>
+          <ion-content color="medium" class={this.currentView}>
+            {this.switchView()}
+          </ion-content>
           <ion-footer color="dark">
             <ion-segment value="script" color="dark" onIonChange={this.segmentChanged.bind(this)}>
               <ion-segment-button value="script">

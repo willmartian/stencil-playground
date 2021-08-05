@@ -61,21 +61,21 @@ export const getCompiler = async () => {
 
 export const sanitizeCodeForBrowser = (code: string) => {
   // These definitions don't work in browser
-  const searchDefinitions = `import { defineCustomElement as __stencil_defineCustomElement } from "@stencil/core/internal/client"`;
-
+  const searchDefinitions = `} from "@stencil/core/internal/client";`;
   // These ones do
-  const replaceDefinitions = `import { defineCustomElement as __stencil_defineCustomElement } from "https://cdn.skypack.dev/@stencil/core/internal/client"`;
+  const replaceDefinitions = `} from "https://cdn.skypack.dev/@stencil/core/internal/client";`;
 
-  // We'll also need to add jsx so we can execute this code
-  const insertHyperscript = `import { h } from "https://cdn.skypack.dev/@stencil/core"`;
+  const hyperScriptDefinitions = `import { h } from "@stencil/core/internal/client";`;
+  const replaceHyperScript = `import { h } from "https://cdn.skypack.dev/@stencil/core";`;
 
-  return code.replace(`${searchDefinitions};`, `${replaceDefinitions}; ${insertHyperscript};`);
+  return code.replace(searchDefinitions, replaceDefinitions).replace(hyperScriptDefinitions, replaceHyperScript);
 };
 
 export const transpileCode = async string => {
   const compiler = await getCompiler();
   const result = await compiler.transpile(string);
   const code = sanitizeCodeForBrowser(result.code);
+  console.error(code);
   set('transpiled', code);
   set('buildResult', result);
 };
@@ -89,10 +89,6 @@ export const getSrcDoc = () => {
   <title>Story: ${state.buildResult.data.map(d => `${d.tagName} (${d.componentClassName})`).join(', ')}</title>
   <script src="https://cdn.jsdelivr.net/npm/axe-core@4.3.2/axe.min.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@stencil/core@latest/compiler/stencil.min.js"></script>
-  <script type="module">
-    import { h } from "https://cdn.skypack.dev/@stencil/core";
-    import { defineCustomElement as __stencil_defineCustomElement } from "https://cdn.skypack.dev/@stencil/core/internal/client";
-  </script>
   <script type="module">${state.transpiled}</script>
 </head>
 <body>

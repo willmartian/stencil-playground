@@ -5,28 +5,27 @@ import { getComponentList, getSrcDoc } from '../../utils/utils';
   tag: 'stencil-preview',
   styleUrl: 'stencil-preview.css',
   assetsDirs: ['assets'],
-  shadow: true,
 })
 export class StencilPreview {
-
   render() {
-
     return (
       <Host>
         <ion-card id="options-card" color="dark">
           <ion-card-content>
             <ion-accordion-group>
-              {getComponentList().map(component => <ion-accordion>
-                <ion-item slot="header" color="dark">
-                  <item-label>{component}</item-label>
-                </ion-item>
-
-                <ion-list slot="content">
-                  <ion-item color="dark">
-                    <div>testy</div>
+              {getComponentList().map(component => (
+                <ion-accordion>
+                  <ion-item slot="header" color="dark">
+                    <item-label>{component}</item-label>
                   </ion-item>
-                </ion-list>
-              </ion-accordion>)}
+
+                  <ion-list slot="content">
+                    <ion-item color="dark">
+                      <div>testy</div>
+                    </ion-item>
+                  </ion-list>
+                </ion-accordion>
+              ))}
             </ion-accordion-group>
           </ion-card-content>
         </ion-card>
@@ -43,7 +42,8 @@ export class StencilPreview {
             <svg class="docs-demo-device__ios-notch" viewBox="0 0 219 31">
               <path d="M0 1V0h219v1a5 5 0 0 0-5 5v3c0 12.15-9.85 22-22 22H27C14.85 31 5 21.15 5 9V6a5 5 0 0 0-5-5z" fill-rule="evenodd" />
             </svg>
-            <iframe loading="lazy" importance="low" srcDoc={getSrcDoc().toString()} />
+            {console.debug(getSrcDoc())}
+            <iframe loading="lazy" importance="low" srcDoc={getSrcDoc()} />
           </figure>
         </div>
       </Host>

@@ -31,7 +31,9 @@ export class StencilEditor {
   @Watch('type')
   handleTypeChange() {
     this.unmountEditor();
-    this.mountEditor();
+    setTimeout(() => {
+      this.mountEditor();
+    }, 1)
   }
 
   contentChanged(_event: Monaco.editor.IModelContentChangedEvent) {
@@ -44,7 +46,7 @@ export class StencilEditor {
     }, 350);
   }
 
-  componentDidLoad() {
+  async componentDidLoad() {
     if (!!state.monacoAvailable) {
       this.mountEditor();
     } else {
