@@ -4,7 +4,6 @@ import state from '../../store/editor-store';
 @Component({
   tag: 'stencil-playground',
   styleUrl: 'stencil-playground.css',
-  shadow: true,
 })
 export class StencilPlayground {
   @Element() element: HTMLElement;

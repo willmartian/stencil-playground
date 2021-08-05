@@ -1,28 +1,24 @@
 import { Component, Host, h, Element, State, getAssetPath } from '@stencil/core';
+import type * as Monaco from 'monaco-editor';
+import loader from '@monaco-editor/loader';
 
 @Component({
   tag: 'stencil-editor',
   styleUrl: 'stencil-editor.css',
-  shadow: true,
 })
 export class StencilEditor {
   @Element() el: HTMLElement;
 
-  @State() editor: monaco.editor.IStandaloneCodeEditor;
+  @State() editor: Monaco.editor.IStandaloneCodeEditor;
 
   private editorEl: HTMLDivElement;
 
-  componentWillLoad() {
-    const el = document.createElement('script');
-    el.src = getAssetPath('./vendor/esm/vs/editor/editor.all.js');
-    document.head.append(el);
-  }
-
   componentDidLoad() {
-    console.log(this.editorEl);
-    monaco.editor.create(this.editorEl, {
-      value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
-      language: 'typescript',
+    loader.init().then(monaco => {
+      this.editor = monaco.editor.create(this.editorEl, {
+        value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
+        language: 'typescript',
+      });
     });
   }
 

@@ -4,7 +4,6 @@ import { Component, Host, h, Prop, getAssetPath } from '@stencil/core';
   tag: 'stencil-preview',
   styleUrl: 'stencil-preview.css',
   assetsDirs: ['assets'],
-  shadow: true,
 })
 export class StencilPreview {
   @Prop() srcDoc: string = '';
