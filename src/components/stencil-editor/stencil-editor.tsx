@@ -5,6 +5,8 @@ import loader from '@monaco-editor/loader';
 @Component({
   tag: 'stencil-editor',
   styleUrl: 'stencil-editor.css',
+  shadow: false,
+  scoped: true
 })
 export class StencilEditor {
   @Element() el: HTMLElement;
@@ -18,6 +20,7 @@ export class StencilEditor {
       this.editor = monaco.editor.create(this.editorEl, {
         value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
         language: 'typescript',
+        theme: 'vs-dark'
       });
     });
   }

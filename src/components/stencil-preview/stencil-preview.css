@@ -60,7 +60,7 @@ stencil-preview {
 }
 
 .docs-demo-device > figure {
-  margin: 0;
+  margin: auto;
 
   background-size: contain;
   background-repeat: no-repeat;

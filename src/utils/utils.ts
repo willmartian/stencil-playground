@@ -19,7 +19,8 @@ export const sanitizeCodeForBrowser = (code: string) => {
 };
 
 export const transpileCode = async string => {
-  const result = await stencil.transpile(string);
-  const code = sanitizeCodeForBrowser(result.code);
-  state.transpiled = code;
+  // const result = await stencil.transpile(string);
+  // const code = sanitizeCodeForBrowser(result.code);
+  // state.transpiled = code;
+  state.transpiled = string;
 };
