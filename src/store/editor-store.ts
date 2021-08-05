@@ -1,8 +1,13 @@
 import { createStore } from '@stencil/store';
 
-const { state } = createStore({
+const { state, onChange } = createStore({
   css: null,
   script: null,
+  transpiled: null,
 });
 
 export default state;
+
+export {
+  onChange
+}

@@ -1,5 +1,6 @@
 import { Component, Host, h, Prop, Element } from '@stencil/core';
-import state from '../../store/editor-store';
+import state, { onChange } from '../../store/editor-store';
+import { transpileCode } from '../../utils/utils';
 
 @Component({
   tag: 'stencil-playground',
@@ -14,6 +15,7 @@ export class StencilPlayground {
   componentWillLoad() {
     state.script = this.scriptContent;
     state.css = this.cssContent;
+    onChange('script', v => transpileCode(v));
   }
 
   get scriptContent() {
