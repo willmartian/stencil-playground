@@ -46,8 +46,9 @@ onChange('buildResult', () => {
   set('propValues', defaultValues);
 });
 
-on('set', prop => {
+on('set', (prop, value) => {
   console.log('Updated:', prop);
+  console.debug(prop, value);
 });
 
 export default state;
