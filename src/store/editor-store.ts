@@ -32,6 +32,7 @@ const initialStore: PreviewStore = {
 const { state, onChange, on, set } = createStore(initialStore);
 
 onChange('script', v => transpileCode(v));
+onChange('css', () => transpileCode(state.script));
 
 onChange('buildResult', () => {
   const components = getComponentList();

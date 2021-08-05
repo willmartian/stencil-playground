@@ -102,7 +102,7 @@ export const getSrcDoc = () => {
   <script type="module">${state.transpiled}</script>
 </head>
 <body>
-  ${state?.content ?? `<my-component></my-component>`}
+  ${state?.content ?? `<my-component name="will"></my-component>`}
 </body>
 </html>
 `;
