@@ -11,10 +11,12 @@ export class StencilPlayground {
 
   @Prop() script: string;
   @Prop() css: string;
+  @Prop() readOnly: boolean;
 
   @State() currentView: 'script' | 'css' | 'preview' = 'script';
 
   componentWillLoad() {
+    state.readOnly = this.readOnly;
     state.script = this.scriptContent;
     state.css = this.cssContent;
   }

@@ -5,6 +5,7 @@ const { state, onChange, on } = createStore({
   css: null,
   script: null,
   transpiled: null,
+  readOnly: false,
 });
 
 onChange('script', v => transpileCode(v));

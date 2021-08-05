@@ -21,9 +21,12 @@ export namespace Components {
         "middle": string;
     }
     interface StencilEditor {
+        "language": string;
+        "type": 'script' | 'css' | 'html';
     }
     interface StencilPlayground {
         "css": string;
+        "readOnly": boolean;
         "script": string;
     }
     interface StencilPreview {
@@ -78,9 +81,12 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface StencilEditor {
+        "language"?: string;
+        "type"?: 'script' | 'css' | 'html';
     }
     interface StencilPlayground {
         "css"?: string;
+        "readOnly"?: boolean;
         "script"?: string;
     }
     interface StencilPreview {

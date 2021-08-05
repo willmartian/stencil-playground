@@ -44,14 +44,14 @@ export const getCompiler = async () => {
     }
   };
 
-  const result = await loadScript();
+  await loadScript();
 
   // for the dev server, add back in the .inspect method
-  if (!result.inspect) {
-    window.stencil = { ...window.stencil, ...window.stencilDevServer };
+  if (!window?.stencil?.inspect) {
+    window.stencil.inspect = window.stencilDevServer.inspect;
   }
 
-  return await loadScript();
+  return window.stencil;
 };
 
 export const sanitizeCodeForBrowser = (code: string) => {
