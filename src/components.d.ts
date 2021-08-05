@@ -30,7 +30,6 @@ export namespace Components {
         "script": string;
     }
     interface StencilPreview {
-        "srcDoc": string;
     }
 }
 declare global {
@@ -90,7 +89,6 @@ declare namespace LocalJSX {
         "script"?: string;
     }
     interface StencilPreview {
-        "srcDoc"?: string;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;

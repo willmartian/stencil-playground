@@ -1,4 +1,5 @@
-import { Component, Host, h, Prop, getAssetPath } from '@stencil/core';
+import { Component, Host, h, getAssetPath } from '@stencil/core';
+import { getSrcDoc } from '../../utils/utils';
 
 @Component({
   tag: 'stencil-preview',
@@ -6,17 +7,9 @@ import { Component, Host, h, Prop, getAssetPath } from '@stencil/core';
   assetsDirs: ['assets'],
 })
 export class StencilPreview {
-  @Prop() srcDoc: string = '';
-
-  get backgroundImage() {
-    return `url("${getAssetPath('./assets/iphone-device-skin.png')}")`;
-  }
-
   render() {
-    const { srcDoc } = this;
-
     return (
-      <Host style={{ '--background-image': this.backgroundImage }}>
+      <Host style={{ '--background-image': `url("${getAssetPath('./assets/iphone-device-skin.png')}")` }}>
         <div class={`docs-demo-device ios`}>
           <figure>
             <svg class="docs-demo-device__md-bar" viewBox="0 0 1384.3 40.3">
@@ -30,7 +23,7 @@ export class StencilPreview {
             <svg class="docs-demo-device__ios-notch" viewBox="0 0 219 31">
               <path d="M0 1V0h219v1a5 5 0 0 0-5 5v3c0 12.15-9.85 22-22 22H27C14.85 31 5 21.15 5 9V6a5 5 0 0 0-5-5z" fill-rule="evenodd" />
             </svg>
-            <iframe loading="lazy" importance="low" srcDoc={srcDoc} />
+            <iframe loading="lazy" importance="low" srcDoc={getSrcDoc()} />
           </figure>
         </div>
       </Host>

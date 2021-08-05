@@ -1,5 +1,5 @@
 import type { transpile as StencilTranspiler } from '@stencil/core/compiler';
-import { set } from '../store/editor-store';
+import state, { set } from '../store/editor-store';
 
 interface StencilInBrowser {
   transpile?: typeof StencilTranspiler;
@@ -75,4 +75,27 @@ export const transpileCode = async string => {
   const result = await compiler.transpile(string);
   const code = sanitizeCodeForBrowser(result.code);
   set('transpiled', code);
+  set('buildResult', result);
+};
+
+export const getSrcDoc = () => {
+  return `<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story: ${state.buildResult.data.map(d => `${d.tagName} (${d.componentClassName})`).join(', ')}</title>
+  <script src="https://cdn.jsdelivr.net/npm/axe-core@4.3.2/axe.min.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@stencil/core@latest/compiler/stencil.min.js"></script>
+  <script type="module">
+    import { h } from "https://cdn.skypack.dev/@stencil/core";
+    import { defineCustomElement as __stencil_defineCustomElement } from "https://cdn.skypack.dev/@stencil/core/internal/client";
+  </script>
+  <script type="module">${state.transpiled}</script>
+</head>
+<body>
+  ${state?.content ?? '<my-component></my-component>'}
+</body>
+</html>
+`;
 };
