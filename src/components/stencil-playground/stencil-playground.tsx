@@ -1,6 +1,5 @@
-import { Component, Host, h, Prop, Element, State, Watch, Fragment } from '@stencil/core';
+import { Component, Host, h, Prop, Element, State } from '@stencil/core';
 import state from '../../store/editor-store';
-import { transpileCode } from '../../utils/utils';
 
 @Component({
   tag: 'stencil-playground',
@@ -50,7 +49,7 @@ export class StencilPlayground {
       case 'preview':
         return <stencil-preview />;
       default:
-        return <div>Error</div>
+        return <div>Error</div>;
     }
   }
 
@@ -58,9 +57,7 @@ export class StencilPlayground {
     return (
       <Host>
         <ion-app>
-          <ion-content>
-            {this.switchView()}
-          </ion-content>
+          <ion-content>{this.switchView()}</ion-content>
           <ion-footer>
             <ion-segment value="script" onIonChange={this.segmentChanged.bind(this)}>
               <ion-segment-button value="script">
