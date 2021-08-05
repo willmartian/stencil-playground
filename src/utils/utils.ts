@@ -111,8 +111,6 @@ export const getSrcDoc = () => {
 export const setProperty = (component, name, newValue) => {
   let props = state.propValues;
 
-  console.log(component, name, newValue);
-
   props = props.map(prop => {
     return prop.component === component && prop.name === name ? { ...prop, value: newValue } : prop;
   });
@@ -134,7 +132,7 @@ export const printAccurateAttribute = prop => {
   if (prop.type === 'boolean') {
     return `${prop.value === true ? prop.name : ''}`;
   } else {
-    return `${prop.name}="${prop?.value}"`;
+    return `${prop.name}="${prop?.value}"`.toString();
   }
 };
 

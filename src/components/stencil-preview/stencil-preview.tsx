@@ -29,7 +29,7 @@ export class StencilPreview {
                           <ion-label>{prop.name + ': '}</ion-label>
                           {prop.type === 'string' && (
                             <ion-input
-                              value={prop?.defaultValue?.replaceAll('"')}
+                              value={prop?.defaultValue?.replaceAll('"', '')}
                               slot="end"
                               type="text"
                               onIonChange={e => setProperty(component, prop.name, e.detail.value)}
