@@ -15,7 +15,7 @@ export class StencilEditor {
   @State() editor: Monaco.editor.IStandaloneCodeEditor;
 
   @Prop() language: string;
-  @Prop() type: 'script' | 'css' | 'html';
+  @Prop() type: 'script' | 'css' | 'html' = 'script';
 
   private editorEl: HTMLDivElement;
 
@@ -36,6 +36,11 @@ export class StencilEditor {
 
   componentDidLoad() {
     loader.init().then(monaco => {
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+        noSyntaxValidation: true,
+      });
+      
       this.editor = monaco.editor.create(this.editorEl, {
         value: this.state,
         language: this.language,
