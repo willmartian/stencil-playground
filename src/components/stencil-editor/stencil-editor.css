@@ -3,7 +3,7 @@ stencil-playground {
   height: 100%;
 }
 
-stencil-playground #editor-container {
+#editor-container {
   height: 100%;
   font-size: 30px;
 }
