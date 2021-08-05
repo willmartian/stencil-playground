@@ -101,10 +101,9 @@ export const getSrcDoc = () => {
 };
 
 export const getComponentList = () => {
-  console.log(state.buildResult.data.map(e => e.name));
-  return state.buildResult.data.map(e => e.name);
+  return state.buildResult.data.map(e => e.tagName);
 };
 
 export const getComponentData = (component: string = 'my-component') => {
-  return state.buildResult.data.find(e => e.name === component);
+  return state.buildResult.data.find(e => e.tagName === component);
 };
