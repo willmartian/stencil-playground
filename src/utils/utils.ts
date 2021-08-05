@@ -94,8 +94,16 @@ export const getSrcDoc = () => {
   <script type="module">${state.transpiled}</script>
 </head>
 <body>
-  ${state?.content ?? '<my-component></my-component>'}
+  ${state?.content ?? `<my-component first="${state}"></my-component>`}
 </body>
 </html>
 `;
+};
+
+export const getComponentList = () => {
+  return state.buildResult.data.map(e => e.name);
+};
+
+export const getComponentData = (component: string = 'my-component') => {
+  return state.buildResult.data.find(e => e.name === component);
 };

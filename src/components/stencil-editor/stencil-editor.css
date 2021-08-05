@@ -1,9 +1,9 @@
-:host {
+stencil-playground {
   display: block;
   height: 100%;
 }
 
-#editor-container {
+stencil-playground #editor-container {
   height: 100%;
   font-size: 30px;
 }
