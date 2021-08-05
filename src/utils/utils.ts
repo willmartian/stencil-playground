@@ -100,6 +100,7 @@ export const getSrcDoc = () => {
   <script src="https://cdn.jsdelivr.net/npm/axe-core@4.3.2/axe.min.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@stencil/core@latest/compiler/stencil.min.js"></script>
   <script type="module">${state.transpiled}</script>
+  <style>my-component {visiblity: visible !important;}</style>
 </head>
 <body>
   ${state?.content ?? getDemoHTML()}
