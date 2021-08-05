@@ -1,7 +1,7 @@
 import { createStore } from '@stencil/store';
 import { transpileCode } from '../utils/utils';
 
-const { state, onChange, on } = createStore({
+const { state, onChange, on, set } = createStore({
   css: null,
   script: null,
   transpiled: null,
@@ -15,3 +15,5 @@ on('set', prop => {
 });
 
 export default state;
+
+export { set, on, state, onChange };
