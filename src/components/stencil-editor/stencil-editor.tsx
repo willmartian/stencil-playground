@@ -41,6 +41,7 @@ export class StencilEditor {
         language: this.language,
         readOnly: state.readOnly,
         theme: 'vs-dark',
+        fontSize: 15
       });
 
       this.editor.getModel().onDidChangeContent(this.contentChanged.bind(this));

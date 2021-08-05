@@ -1,6 +1,19 @@
 stencil-preview {
-  padding-top: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
+
+ion-card#options-card {
+  min-height: 500px;
+  min-width: 300px;
+  border-radius: 25px;
+  /* border: 2px solid black; */
+
+}
+
+/* Phone iFrame */
 
 .docs-demo-device {
   --device-padding: 1rem;

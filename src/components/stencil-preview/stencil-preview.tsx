@@ -1,4 +1,5 @@
 import { Component, Host, h, Prop, getAssetPath } from '@stencil/core';
+import state from '../../store/editor-store'
 
 @Component({
   tag: 'stencil-preview',
@@ -14,10 +15,22 @@ export class StencilPreview {
 
   render() {
     const { srcDoc } = this;
+    const componentName = 'my-component'
 
     return (
-      <Host style={{ '--background-image': this.backgroundImage }}>
-        <div class={`docs-demo-device ios`}>
+      <Host>
+        <ion-card id="options-card" color="dark">
+          <ion-card-header>
+            <ion-card-title>
+              {`<${componentName}>`}
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+
+          </ion-card-content>
+        </ion-card>
+        <div style={{ '--background-image': this.backgroundImage }} class={`docs-demo-device ios`}>
           <figure>
             <svg class="docs-demo-device__md-bar" viewBox="0 0 1384.3 40.3">
               <path class="st0" d="M1343 5l18.8 32.3c.8 1.3 2.7 1.3 3.5 0L1384 5c.8-1.3-.2-3-1.7-3h-37.6c-1.5 0-2.5 1.7-1.7 3z" />
