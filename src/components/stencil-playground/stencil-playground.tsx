@@ -35,6 +35,26 @@ export class StencilPlayground {
   render() {
     return (
       <Host>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-menu-button menu="start" />
+            </ion-buttons>
+            {/* {/*value={view} onIonChange={e => setView(e.detail.value)}*/}
+            <ion-segment>
+              <ion-segment-button value="definition">
+                <ion-label>Definition</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="style">
+                <ion-label>Style</ion-label>
+              </ion-segment-button>
+              {/*  {/*onMouseUp={handleContextMenu}*/}
+              <ion-segment-button id="segment-button-preview" value="preview">
+                <ion-label>Preview</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+          </ion-toolbar>
+        </ion-header>
         <stencil-editor />
         <stencil-preview />
 

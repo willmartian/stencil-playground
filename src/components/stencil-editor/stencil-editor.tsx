@@ -1,4 +1,4 @@
-import { Component, Host, h, Element, State, getAssetPath } from '@stencil/core';
+import { Component, Host, h, Element, State } from '@stencil/core';
 import type * as Monaco from 'monaco-editor';
 import loader from '@monaco-editor/loader';
 
