@@ -10,7 +10,6 @@ import { getComponentList, getSrcDoc } from '../../utils/utils';
 export class StencilPreview {
 
   render() {
-    const componentName = 'my-component'
 
     return (
       <Host>
@@ -24,7 +23,7 @@ export class StencilPreview {
 
                 <ion-list slot="content">
                   <ion-item color="dark">
-
+                    <div>testy</div>
                   </ion-item>
                 </ion-list>
               </ion-accordion>)}
