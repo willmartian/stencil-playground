@@ -6,9 +6,14 @@ stencil-preview {
 }
 
 ion-card#options-card {
-  min-height: 500px;
-  min-width: 300px;
+  min-height: 300px;
+  width: 300px;
   border-radius: 25px;
+}
+
+.prop-list {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 /* Phone iFrame */

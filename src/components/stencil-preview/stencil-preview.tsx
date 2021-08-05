@@ -1,11 +1,11 @@
 import { Component, Host, h, getAssetPath } from '@stencil/core';
-import { getComponentList, getSrcDoc } from '../../utils/utils';
+import { getComponentData, getComponentList, getSrcDoc } from '../../utils/utils';
 
 @Component({
   tag: 'stencil-preview',
   styleUrl: 'stencil-preview.css',
   assetsDirs: ['assets'],
-  shadow: true,
+  shadow: false,
 })
 export class StencilPreview {
 
@@ -16,17 +16,25 @@ export class StencilPreview {
         <ion-card id="options-card" color="dark">
           <ion-card-content>
             <ion-accordion-group>
-              {getComponentList().map(component => <ion-accordion>
-                <ion-item slot="header" color="dark">
-                  <item-label>{component}</item-label>
-                </ion-item>
+              {getComponentList().map(component => {
+                const data = getComponentData(component);
 
-                <ion-list slot="content">
-                  <ion-item color="dark">
-                    <div>testy</div>
+                return <ion-accordion>
+                  <ion-item slot="header" color="dark">
+                    <item-label>{component}</item-label>
                   </ion-item>
-                </ion-list>
-              </ion-accordion>)}
+
+                  <ion-list slot="content" class="prop-list" lines="full" style={{paddingTop: '0', paddingBottom: '0'}}>
+                    {data.properties.map(prop =>
+                      <ion-item color="dark">
+                        <ion-label>{prop.name + ': '}</ion-label>
+                        {prop.type === 'string' && <ion-input slot="end" type="text"></ion-input>}
+                        {prop.type === 'boolean' && <ion-toggle checked={prop.defaultValue === 'true'}></ion-toggle>}
+                      </ion-item>
+                    )}
+                  </ion-list>
+                </ion-accordion>
+              })}
             </ion-accordion-group>
           </ion-card-content>
         </ion-card>
@@ -43,7 +51,7 @@ export class StencilPreview {
             <svg class="docs-demo-device__ios-notch" viewBox="0 0 219 31">
               <path d="M0 1V0h219v1a5 5 0 0 0-5 5v3c0 12.15-9.85 22-22 22H27C14.85 31 5 21.15 5 9V6a5 5 0 0 0-5-5z" fill-rule="evenodd" />
             </svg>
-            <iframe loading="lazy" importance="low" srcDoc={getSrcDoc().toString()} />
+            <iframe loading="lazy" importance="low" srcDoc={getSrcDoc()} />
           </figure>
         </div>
       </Host>
