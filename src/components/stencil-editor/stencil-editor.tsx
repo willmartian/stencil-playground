@@ -50,6 +50,10 @@ export class StencilEditor {
     } else {
       loader.init().then(monaco => {
         window.monaco = monaco;
+        window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+          noSemanticValidation: true,
+          noSyntaxValidation: true,
+        });
         state.monacoAvailable = true;
         this.mountEditor();
       });
@@ -61,11 +65,6 @@ export class StencilEditor {
   }
 
   mountEditor() {
-    window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSemanticValidation: true,
-      noSyntaxValidation: true,
-    });
-
     this.editor = window.monaco.editor.create(this.editorEl, {
       value: this.state,
       language: this.language,
