@@ -60,6 +60,7 @@ export const getCompiler = async () => {
 };
 
 export const sanitizeCodeForBrowser = (code: string) => {
+  console.log(state.css);
   // These definitions don't work in browser
   const searchDefinitions = `} from "@stencil/core/internal/client";`;
   // These ones do
@@ -68,7 +69,16 @@ export const sanitizeCodeForBrowser = (code: string) => {
   const hyperScriptDefinitions = `import { h } from "@stencil/core/internal/client";`;
   const replaceHyperScript = `import { h } from "https://cdn.skypack.dev/@stencil/core";`;
 
-  return code.replace(searchDefinitions, replaceDefinitions).replace(hyperScriptDefinitions, replaceHyperScript);
+  const styleDefinition = `static get style() { return myComponentStyle; }`;
+  const styleReplacement = `static get style() { return \"${state.css.replace(/(\r\n|\n|\r)/gm, '')}\"; }`;
+
+  const constructibleStyleSheet = `import myComponentStyle from "./my-component.css?tag=my-component&encapsulation=shadow";`;
+
+  return code
+    .replace(searchDefinitions, replaceDefinitions)
+    .replace(hyperScriptDefinitions, replaceHyperScript)
+    .replace(styleDefinition, styleReplacement)
+    .replace(constructibleStyleSheet, '');
 };
 
 export const transpileCode = async string => {
@@ -92,7 +102,7 @@ export const getSrcDoc = () => {
   <script type="module">${state.transpiled}</script>
 </head>
 <body>
-  ${state?.content ?? `<my-component></my-component>`}
+  ${state?.content ?? `<my-component name="will"></my-component>`}
 </body>
 </html>
 `;

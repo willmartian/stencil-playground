@@ -52,6 +52,9 @@ export class StencilEditor {
     } else {
       loader.init().then(monaco => {
         window.monaco = monaco;
+        window.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+          experimentalDecorators: true,
+        });
         window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
           noSemanticValidation: true,
           noSyntaxValidation: true,
