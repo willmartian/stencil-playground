@@ -41,10 +41,13 @@ onChange('buildResult', () => {
   let defaultValues: PropValues[] = [];
   components.forEach(component => {
     getComponentData(component).properties.map(data => {
+      let value = data.type === 'string' ? data?.defaultValue?.replaceAll('"', '') : data?.defaultValue;
+      value = data.type === 'boolean' ? !!value : value;
+
       defaultValues.push({
         component,
         name: data.attribute,
-        value: data.defaultValue,
+        value,
         type: data.type,
       });
     });
