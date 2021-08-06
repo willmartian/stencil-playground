@@ -9,9 +9,17 @@
 
     <script type="module" src="/build/stencil-playground.esm.js"></script>
     <script nomodule src="/build/stencil-playground.js"></script>
+
+    <style>
+      stencil-playground {
+        --margin: 2em;
+        --height: 400px;
+        --width: 600px;
+      }
+    </style>
   </head>
   <body>
-    <stencil-playground>
+    <stencil-playground readonly>
       <template slot="script">
         <script>import { Component, Prop, h } from '@stencil/core';
 

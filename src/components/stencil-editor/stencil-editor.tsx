@@ -84,7 +84,9 @@ export class StencilEditor {
   render() {
     return (
       <Host>
-        <div ref={e => (this.editorEl = e)} id="editor-container" />
+        {/* <ion-content scrollY={false}> */}
+          <div ref={e => (this.editorEl = e)} id="editor-container" />
+        {/* </ion-content> */}
       </Host>
     );
   }

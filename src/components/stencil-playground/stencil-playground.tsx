@@ -10,7 +10,9 @@ export class StencilPlayground {
 
   @Prop() script: string;
   @Prop() css: string;
-  @Prop() readOnly: boolean;
+  @Prop({
+    attribute: 'readonly'
+  }) readOnly: boolean;
 
   @State() currentView: 'script' | 'css' | 'preview' = 'script';
 
@@ -63,11 +65,11 @@ export class StencilPlayground {
   private switchView() {
     switch (this.currentView) {
       case 'script':
-        return <stencil-editor type="script" language="typescript" />;
+        return <ion-content color="dark"><stencil-editor type="script" language="typescript" /></ion-content>;
       case 'css':
-        return <stencil-editor type="css" language="css" />;
+        return <ion-content color="dark"><stencil-editor type="css" language="css" /></ion-content>;
       case 'preview':
-        return <stencil-preview />;
+        return <ion-content><stencil-preview /></ion-content>;
       default:
         return <div>Error</div>;
     }
@@ -77,16 +79,15 @@ export class StencilPlayground {
     return (
       <Host>
         <ion-app>
-          <ion-content color="medium" class={this.currentView}>
-            {this.switchView()}
-          </ion-content>
+          {this.switchView()}
           <ion-footer color="dark">
             <ion-segment value="script" color="dark" onIonChange={this.segmentChanged.bind(this)}>
-              <ion-segment-button value="script" ref={el => (this.scriptBtnEl = el)}>
-                <ion-label>Definition</ion-label>
+              <ion-segment-button value="script" layout="icon-start" ref={el => (this.scriptBtnEl = el)}>
+                <ion-icon name="logo-stencil"></ion-icon>
+                <ion-label>Stencil</ion-label>
               </ion-segment-button>
               <ion-segment-button value="css" ref={el => (this.cssBtnEl = el)}>
-                <ion-label>Style</ion-label>
+                <ion-label>CSS</ion-label>
               </ion-segment-button>
               <ion-segment-button id="segment-button-preview" value="preview" ref={el => (this.previewBtnEl = el)}>
                 <ion-label>Preview</ion-label>

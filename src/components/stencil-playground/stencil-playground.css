@@ -1,7 +1,31 @@
 stencil-playground {
   display: block;
+
+  --width: 100%;
+  --height: 100%;
+  --font-size: 15px;
+  --margin: unset;
+}
+
+ion-app {
+  width: var(--width);
+  height: var(--height);
+  margin: var(--margin);
+
+  border-radius: 10px;
+  border: 2px solid darkgray;
 }
 
 stencil-playground > ion-app > ion-content:not(.preview) {
   --ion-color-medium: rgb(30, 30, 30) !important;
+}
+
+ion-segment-button {
+  --background-checked: red;
+  --background: blue !important;
+  --indicator-height: 0px;
+}
+
+ion-segment-button.segment-button-checked {
+  background: rgb(230, 230, 230);
 }
